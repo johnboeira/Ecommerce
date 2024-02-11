@@ -1,8 +1,6 @@
 ﻿using Ecommerce.Domain;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
 
 namespace Ecommerce.Web.API.Controllers
 {
@@ -11,31 +9,25 @@ namespace Ecommerce.Web.API.Controllers
     public class ProdutoController : ControllerBase
     {
         List<Produto> produtos;
-        public ProdutoController()
-        {
-            produtos = new List<Produto>();
-
-            var novoProduto = new Produto()
-            {
-                Codigo = 1,
-                Nome = "Peso 5KG",
-                Preco = 50.0
-            };
-
-            var novoProduto2 = new Produto()
-            {
-                Codigo = 2,
-                Nome = "Bola",
-                Preco = 30.0
-            };
-
-            produtos.Add(novoProduto);
-            produtos.Add(novoProduto2);
-        }
 
         [HttpGet]
         public List<Produto> GetProducts()
         {
+            produtos = new List<Produto>(){
+            new Produto()
+            {
+                Codigo = 1,
+                Nome = "Peso 5KG",
+                Preco = 50.0
+            },
+            new Produto()
+            {
+                Codigo = 2,
+                Nome = "Bola",
+                Preco = 30.0
+            }
+            };
+
             return produtos;
         }
 
@@ -53,20 +45,40 @@ namespace Ecommerce.Web.API.Controllers
         }
 
         [HttpPost]
-        public void CreateProduct([FromBody] string value)
+        public void CreateProduct([FromBody] Produto produto)
         {
+            produtos.Add(produto);
         }
 
-        // PUT api/<ProdutoController>/5
-        [HttpPut("{id}")]
-        public void UpdateProduct(int id, [FromBody] string value)
+        [HttpPut()]
+        public IActionResult UpdateProduct([FromBody] Produto produtoAtualizado)
         {
+            var produtoEncontrado = produtos.Find(produto => produto.Codigo == produtoAtualizado.Codigo);
+
+            var produtoNaoFoiEncontrado = produtoEncontrado is null;
+
+            if (produtoNaoFoiEncontrado)
+                return NotFound();
+
+            produtos.Remove(produtoEncontrado);
+            produtos.Add(produtoAtualizado);
+
+            return Ok(produtos);
         }
 
-        // DELETE api/<ProdutoController>/5
-        [HttpDelete("{id}")]
-        public void DeleteProduct(int id)
+        [HttpDelete("{codigo}")]
+        public IActionResult DeleteProduct(int Codigo)
         {
+            var produtoEncontrado = produtos.Find(produto => produto.Codigo == Codigo);
+
+            var produtoNaoFoiEncontrado = produtoEncontrado is null;
+
+            if (produtoNaoFoiEncontrado)
+                return NotFound();
+
+            produtos.Remove(produtoEncontrado);
+
+            return Ok(produtos);
         }
     }
 }
