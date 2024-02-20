@@ -22,16 +22,6 @@ namespace Ecommerce.Web.API.Controllers
             };
 
             produtos.Add(produto);
-
-            /*
-           ,
-            new Produto()
-            {
-                Codigo = 2,
-                Nome = "Bola",
-                Preco = 30.0
-            }
-             */
         }
 
         [HttpGet]

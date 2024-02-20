@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Web.API", "Ecomme
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Infra", "3. Infra", "{699BEC2C-C22E-4ECD-8621-28A19320C35A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Infra.Data", "Ecommerce.Infra.Data\Ecommerce.Infra.Data.csproj", "{AB44F114-DE2D-4A0F-88DE-DA1DFE801862}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Infra.Data", "Ecommerce.Infra.Data\Ecommerce.Infra.Data.csproj", "{AB44F114-DE2D-4A0F-88DE-DA1DFE801862}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Distribuicao", "1. Distribuicao", "{9B5ABB6B-5A71-4E86-9F07-E37AF96227B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Dominio", "2. Dominio", "{A712E942-F25A-462C-AE78-DC7C4E458405}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +38,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{DE1ED69D-0E20-40F4-9EBC-3E09165AB2F8} = {A712E942-F25A-462C-AE78-DC7C4E458405}
+		{E34185E9-4D51-4B5F-B08E-1BCD2063505B} = {9B5ABB6B-5A71-4E86-9F07-E37AF96227B0}
 		{AB44F114-DE2D-4A0F-88DE-DA1DFE801862} = {699BEC2C-C22E-4ECD-8621-28A19320C35A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
