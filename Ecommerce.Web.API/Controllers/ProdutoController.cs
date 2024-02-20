@@ -10,24 +10,33 @@ namespace Ecommerce.Web.API.Controllers
     {
         List<Produto> produtos;
 
-        [HttpGet]
-        public List<Produto> GetProducts()
+        public ProdutoController()
         {
-            produtos = new List<Produto>(){
-            new Produto()
+            produtos = new List<Produto>() { };
+
+            var produto = new Produto()
             {
                 Codigo = 1,
                 Nome = "Peso 5KG",
                 Preco = 50.0
-            },
+            };
+
+            produtos.Add(produto);
+
+            /*
+           ,
             new Produto()
             {
                 Codigo = 2,
                 Nome = "Bola",
                 Preco = 30.0
             }
-            };
+             */
+        }
 
+        [HttpGet]
+        public List<Produto> GetProducts()
+        {
             return produtos;
         }
 
@@ -66,10 +75,10 @@ namespace Ecommerce.Web.API.Controllers
             return Ok(produtos);
         }
 
-        [HttpDelete("{codigo}")]
-        public IActionResult DeleteProduct(int Codigo)
+        [HttpDelete()]
+        public IActionResult DeleteProduct([FromBody] Produto produtoParaDeletar)
         {
-            var produtoEncontrado = produtos.Find(produto => produto.Codigo == Codigo);
+            var produtoEncontrado = produtos.Find(produto => produto.Codigo == produtoParaDeletar.Codigo);
 
             var produtoNaoFoiEncontrado = produtoEncontrado is null;
 
