@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Domain.Shared;
 using System;
+using System.Runtime.InteropServices;
 
 namespace Ecommerce.Domain
 {

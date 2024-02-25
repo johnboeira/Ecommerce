@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.Infra.Data.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    [Migration("20240220234522_initial-migration")]
-    partial class initialmigration
+    [Migration("20240224195931_initial-migrations")]
+    partial class initialmigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,7 @@ namespace Ecommerce.Infra.Data.Migrations
 
                     b.HasIndex("Codigo");
 
-                    b.ToTable("Acoes");
+                    b.ToTable("Produtos");
                 });
 #pragma warning restore 612, 618
         }

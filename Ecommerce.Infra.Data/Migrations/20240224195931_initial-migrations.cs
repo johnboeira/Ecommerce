@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Ecommerce.Infra.Data.Migrations
 {
-    public partial class initialmigration : Migration
+    public partial class initialmigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Acoes",
+                name: "Produtos",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -18,19 +18,19 @@ namespace Ecommerce.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Acoes", x => x.Id);
+                    table.PrimaryKey("PK_Produtos", x => x.Id);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Acoes_Codigo",
-                table: "Acoes",
+                name: "IX_Produtos_Codigo",
+                table: "Produtos",
                 column: "Codigo");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Acoes");
+                name: "Produtos");
         }
     }
 }

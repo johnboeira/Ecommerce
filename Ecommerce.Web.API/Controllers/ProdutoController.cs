@@ -1,6 +1,9 @@
 ﻿using Ecommerce.Domain;
+using Ecommerce.Infra.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ecommerce.Web.API.Controllers
 {
@@ -8,32 +11,36 @@ namespace Ecommerce.Web.API.Controllers
     [ApiController]
     public class ProdutoController : ControllerBase
     {
-        List<Produto> produtos;
+        private EcommerceDbContext dbContext;
 
         public ProdutoController()
         {
-            produtos = new List<Produto>() { };
+            dbContext = new EcommerceDbContext();
 
-            var produto = new Produto()
-            {
-                Codigo = 1,
-                Nome = "Peso 5KG",
-                Preco = 50.0
-            };
+            if (dbContext.Produtos.Count() == 0) {
+                var produto = new Produto()
+                {
+                    Codigo = 1,
+                    Nome = "Peso 5KG",
+                    Preco = 50.0
+                };
 
-            produtos.Add(produto);
+                dbContext.Produtos.Add(produto);
+
+                dbContext.SaveChanges();
+            }
         }
 
         [HttpGet]
         public List<Produto> GetProducts()
         {
-            return produtos;
+            return dbContext.Produtos.ToList();
         }
 
         [HttpGet("{codigo}")]
         public IActionResult GetProduct(int codigo)
         {
-            var produtoEncontrado = produtos.Find(produto => produto.Codigo == codigo);
+            var produtoEncontrado = dbContext.Produtos.FirstOrDefault(produto => produto.Codigo == codigo);
 
             var produtoNaoFoiEncontrado = produtoEncontrado is null;
 
@@ -46,38 +53,43 @@ namespace Ecommerce.Web.API.Controllers
         [HttpPost]
         public void CreateProduct([FromBody] Produto produto)
         {
-            produtos.Add(produto);
+            dbContext.Produtos.Add(produto);
+
+            dbContext.SaveChanges();
         }
 
         [HttpPut()]
         public IActionResult UpdateProduct([FromBody] Produto produtoAtualizado)
         {
-            var produtoEncontrado = produtos.Find(produto => produto.Codigo == produtoAtualizado.Codigo);
+            var produtoEncontrado = dbContext.Produtos.FirstOrDefault(produto => produto.Codigo == produtoAtualizado.Codigo);
 
             var produtoNaoFoiEncontrado = produtoEncontrado is null;
 
             if (produtoNaoFoiEncontrado)
                 return NotFound();
 
-            produtos.Remove(produtoEncontrado);
-            produtos.Add(produtoAtualizado);
+            produtoEncontrado.Nome = produtoAtualizado.Nome;
 
-            return Ok(produtos);
+            dbContext.SaveChanges();
+
+            return Ok(dbContext.Produtos.ToList());
         }
 
         [HttpDelete()]
         public IActionResult DeleteProduct([FromBody] Produto produtoParaDeletar)
         {
-            var produtoEncontrado = produtos.Find(produto => produto.Codigo == produtoParaDeletar.Codigo);
+            var produtoEncontrado = dbContext.Produtos.FirstOrDefault(produto => produto.Codigo == produtoParaDeletar.Codigo);
 
             var produtoNaoFoiEncontrado = produtoEncontrado is null;
 
             if (produtoNaoFoiEncontrado)
                 return NotFound();
 
-            produtos.Remove(produtoEncontrado);
+            dbContext.Produtos.Remove(produtoEncontrado);
 
-            return Ok(produtos);
+            dbContext.SaveChanges();
+
+            return Ok(dbContext.Produtos.ToList());
         }
     }
 }

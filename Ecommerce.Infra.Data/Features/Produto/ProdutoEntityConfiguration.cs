@@ -8,14 +8,14 @@ namespace Ecommerce.Infra.Data.Features
     {
         public void Configure(EntityTypeBuilder<Produto> builder)
         {
-            builder.ToTable("Acoes");
+            builder.ToTable("Produtos");
 
-            builder.HasKey(x => x.Id);
+            builder.HasKey(p => p.Id);
 
             builder.HasIndex(p => p.Codigo);
 
-            builder.Property(p => p.Nome).HasColumnType("nvarchar").HasMaxLength(60).IsRequired();
-            builder.Property(p => p.Preco).HasColumnType("float").IsRequired();
+            builder.Property(p => p.Nome).HasColumnType("nvarchar").HasMaxLength(70).IsRequired();
+            builder.Property(p => p.Preco).HasColumnType("float");
         }
     }
 }

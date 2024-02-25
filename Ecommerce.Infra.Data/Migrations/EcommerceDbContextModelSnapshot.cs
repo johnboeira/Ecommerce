@@ -40,7 +40,7 @@ namespace Ecommerce.Infra.Data.Migrations
 
                     b.HasIndex("Codigo");
 
-                    b.ToTable("Acoes");
+                    b.ToTable("Produtos");
                 });
 #pragma warning restore 612, 618
         }

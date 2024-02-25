@@ -9,7 +9,7 @@ namespace Ecommerce.Infra.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server= Servidor; Database=Ecommerce;User Id=sa;Password=P@ssw0rd;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer(@"Server= DESKTOP-31D0VL7\SQLEXPRESS; Database=Ecommerce;User Id=sa;Password=P@ssw0rd;TrustServerCertificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
